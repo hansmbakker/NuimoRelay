@@ -144,16 +144,12 @@ void WindowsWheelDevice::emitWheelEvent(bool buttonPressed, int16_t rotation)
         //report.yAxis = y;
 
         Serial.println("casting report to bytes");
-        //char* reportBytes = reinterpret_cast<char*>(&report);
-        //uint8_t* reportBytes = reinterpret_cast<uint8_t*>(&report);
-        uint8_t* v = new uint8_t[2];
-
-        memcpy(v, &report, 2);
-
+        Serial.printf("report data: %8x%8x\n", ((uint8_t*)&report)[0], ((uint8_t*)&report)[1]);
+        
         Serial.println("writing bytes to service");
-        //Serial.printf("Data: %s | Length: %u", v, sizeof(v));
-        //pHidDevice->inputReport(1)->setValue((uint8_t*)&reportBytes, sizeof(reportBytes));
-        pHidDevice->inputReport(1)->setValue(v, sizeof(v));
+        
+        pHidDevice->inputReport(1)->setValue((uint8_t*)&report, 2);
+        
         Serial.println("notifying");
         pHidDevice->inputReport(1)->notify();
     }
