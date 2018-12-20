@@ -8,7 +8,7 @@ class NuimoService
   public:
     NuimoService(BLERemoteService *nuimoRemoteService);
     void setupCallbacks(notify_callback buttonCallback, notify_callback rotationCallback);
-    static const BLEUUID nuimoServiceUuid;
+    static BLEUUID nuimoServiceUuid;
 
   private:
     BLERemoteCharacteristic *getButtonCharacteristic();
